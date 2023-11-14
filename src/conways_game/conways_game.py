@@ -1,18 +1,16 @@
 import tkinter as tk
-import threading, time, random, copy
+import threading
+import time
+import random
+import numpy as np
+
 # Global variable definition
-matrix = {}
-n_cols, n_rows = 10,10
+N_COLS = 10  # Number of columns of the matrix
+N_ROWS = 10  # Number of rows of the matrix
+
+matrix = np.zeros((N_ROWS, N_COLS), dtype=int)
+
 update_matrix_flag = True
-
-root = tk.Tk()
-root.title("Conway's Game of Life")
-matrix_frame = tk.Frame(root)
-matrix_frame.pack()
-button_frame = tk.Frame(root, pady = 10)
-button_frame.pack()
-
-
 
 def clear_matrix():
     for y in range(n_rows):
@@ -131,6 +129,16 @@ def update_thread():
     update_thread = threading.Thread(target = update_matrix)
     update_thread.daemon=True
     update_thread.start()
+
+
+root = tk.Tk()
+root.title("Conway's Game of Life")
+matrix_frame = tk.Frame(root)
+matrix_frame.pack()
+button_frame = tk.Frame(root, pady = 10)
+button_frame.pack()
+
+
 
 # Create buttons
 button1 = tk.Button(button_frame, text="Clean", command=clear_matrix, padx=40)

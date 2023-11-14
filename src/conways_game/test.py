@@ -61,6 +61,7 @@ def draw_grid():
 # Función para iniciar el juego
 def start_game():
     measure_time(next_generation)
+    input()
     root.after(SPEED, start_game)
 
 # Función para medir el tiempo de ejecución de una función

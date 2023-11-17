@@ -3,8 +3,8 @@ import numpy as np
 import time
 
 # Global variable definition
-N_COLS = 250  # Number of columns of the matrix
-N_ROWS = 250  # Number of rows of the matrix
+N_COLS = 150  # Number of columns of the matrix
+N_ROWS = 150  # Number of rows of the matrix
 CELL_SIZE = 5
 
 matrix = np.random.randint(2, size=(N_ROWS, N_COLS))

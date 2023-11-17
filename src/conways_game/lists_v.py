@@ -1,20 +1,20 @@
 import tkinter as tk
 import random, time
 
-# Tamaño de la cuadrícula y velocidad del juego
-GRID_SIZE = 250
+# Board size and speed of the game
+GRID_SIZE = 150
 CELL_SIZE = 5
-SPEED = 100  # milisegundos
+SPEED = 100  # miliseconds
 
-# Crear una matriz para el tablero
+# Creates the board
 grid = [[0] * GRID_SIZE for _ in range(GRID_SIZE)]
 
-# Inicializar el tablero con células vivas aleatorias
+# Initialize the board
 for i in range(GRID_SIZE):
     for j in range(GRID_SIZE):
         grid[i][j] = random.choice([0, 1])
 
-# Función para calcular el siguiente estado del juego
+# Perform a step in the game
 def next_generation():
     new_grid = [[0] * GRID_SIZE for _ in range(GRID_SIZE)]
 
@@ -46,7 +46,7 @@ def next_generation():
 
     draw_grid()
 
-# Función para dibujar el tablero
+# Draws the board
 def draw_grid():
     canvas.delete("cell")
     for i in range(GRID_SIZE):
@@ -58,10 +58,9 @@ def draw_grid():
                 y2 = y1 + CELL_SIZE
                 canvas.create_rectangle(x1, y1, x2, y2, fill="black", tags="cell")
 
-# Función para iniciar el juego
+# Starts the game
 def start_game():
     measure_time(next_generation)
-    input()
     root.after(SPEED, start_game)
 
 # Función para medir el tiempo de ejecución de una función
@@ -69,22 +68,22 @@ def measure_time(func):
     start_time = time.time()
     func()
     end_time = time.time()
-    print("Tiempo de ejecución:", end_time - start_time, "segundos")
+    print("Execution time:", end_time - start_time, "seconds")
 
 
-# Crear la ventana de juego
+# Creates game window
 root = tk.Tk()
 root.title("Conway's Game of Life")
 
-# Crear el lienzo para dibujar el tablero
+# Creates canvas
 canvas = tk.Canvas(root, width=GRID_SIZE * CELL_SIZE, height=GRID_SIZE * CELL_SIZE)
 canvas.pack()
 
-# Botón de inicio
+# Button to start the game
 start_button = tk.Button(root, text="Start", command=start_game)
 start_button.pack()
 
-# Dibujar el tablero inicial
+# Draws the initial board
 draw_grid()
 
 root.mainloop()

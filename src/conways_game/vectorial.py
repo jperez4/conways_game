@@ -3,7 +3,7 @@ import tkinter as tk
 import random, time
 
 # Tamaño de la cuadrícula y velocidad del juego
-GRID_SIZE = 250
+GRID_SIZE = 150
 CELL_SIZE = 5
 SPEED = 100  # milisegundos
 

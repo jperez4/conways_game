@@ -14,6 +14,7 @@ for i in range(GRID_SIZE):
     for j in range(GRID_SIZE):
         grid[i][j] = random.choice([0, 1])
 
+
 # Perform a step in the game
 def next_generation():
     new_grid = [[0] * GRID_SIZE for _ in range(GRID_SIZE)]
@@ -46,6 +47,7 @@ def next_generation():
 
     draw_grid()
 
+
 # Draws the board
 def draw_grid():
     canvas.delete("cell")
@@ -58,12 +60,14 @@ def draw_grid():
                 y2 = y1 + CELL_SIZE
                 canvas.create_rectangle(x1, y1, x2, y2, fill="black", tags="cell")
 
+
 # Starts the game
 def start_game():
     measure_time(next_generation)
     root.after(SPEED, start_game)
 
-# Función para medir el tiempo de ejecución de una función
+
+# Measure the execution time
 def measure_time(func):
     start_time = time.time()
     func()

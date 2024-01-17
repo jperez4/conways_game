@@ -24,24 +24,73 @@ The most important part here is learn how to pack (literally) elements in tkinte
 
 Finally I made use of decorators to tried to calculate the performance of each step of the game, giving me a mean of 0.05247926712036133
 
-Implementation of Conways's Game of Life
+## Second approach
+After doing the game with lists I was wondering if there was a better solution/implementation (speed). So I researched and I found numpy, so I tried to implement the game using it. 
 
-## Installation
+Futhermore I wanted to show the user an empty board to fill with its own values. So, in the numpy version first it will appear a window with the empty board and then each time the user clicks a square in the canvas, changes its value, and then with the button Start, it starts the game. I was expecting better execution times but the result was even worse than the lists version, I thought that cant be possible, so I started researching.
 
-To install with pip on macOS or Linux, run:
+## Final approach
+After some research about numpy and its capabilities I realize i was wrong, I was using it wrong. There is no advantage of using numpy over list if I'm going to use "normal" operations (loop, count, sums). In fact in certain cases, numpy can be slower if the size is small. 
 
-    python3 -m pip install conways_game
+The solution? Vectorial operations. This time instead of looping over each element of the matrix calculating the next step, we do it for all element at the same time. We roll over the axis in the eight possible directions (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)  to calculate the neighbors alining the neighbor cells with the central cell.
 
-To install with pip on Windows, run:
+"Align the neighbor cells" means that we want to put the neighbot cells in specific position to compare it with the centrall cell in an eficient process.
 
-    py -m pip install conways_game
+An example with a centrall cell and its neighbors in a 3x3 matrix:
 
-## Quickstart Guide
+X X X
+X C X
+X X X
 
-TODO - fill this in later
+Where "C" is the centrall cell and X the neighbor cells. If we want to apply the game rules to the centrall cell we need to evaluate the state of its eight neighbors. To do this efficiently we roll the matrix
 
-## Contribute
+Up shift: The up neigbor cells "X" aligns with the centrall cell "C"
 
-If you'd like to contribute to Conways Game of Life, check out https://github.com/jperez4/conways_game
+X C X
+X X X
+X X X
 
+Down shift: The down neigbor cells "X" aligns with the centrall cell "C"
 
+X X X
+X X X
+X C X
+
+An so on
+
+np.roll it's a NumPy function that rotates the matrix elements in one or several axis. That can be usefull to perform neighborhood operations.
+
+np.roll(a, shift, axis=None)
+a: matrix.
+shift: integer value or tuple of integer with the value of positions to shift the elements.
+axis: integer or tuple of integer indicating along which axes to shift. 
+
+For example, matrix mat and I want to shift it's elements one position top in the row axis (0)
+
+mat = np.array([[1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]])
+
+shifted_mat = np.roll(mat, shift=-1, axis=0)
+
+print(shifted_mat)
+
+[[4 5 6]
+ [7 8 9]
+ [1 2 3]]
+
+In the game, np.roll it's used to perform the neighborhood of each cell shifting the matrix in the eight possible directions, without using loops. 
+
+After calculating the eight possible directions, we sum all the neighborhood matrices. Each cell in the neighbors matrix represent the sum of its eight neigbors
+
+## I made use of/learn
+- Random
+- Time
+- Tkinter (canvas, root.after, root.mainloop, pack)
+- Numpy
+- List comprehension
+- Operators (%)
+- Decorators
+- Sometimes its faster to access n positions than slicing
+- Black formatting
+- Mutable vs Inmutable objects

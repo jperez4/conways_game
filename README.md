@@ -81,7 +81,9 @@ print(shifted_mat)
 
 In the game, np.roll it's used to perform the neighborhood of each cell shifting the matrix in the eight possible directions, without using loops. 
 
-After calculating the eight possible directions, we sum all the neighborhood matrices. Each cell in the neighbors matrix represent the sum of its eight neigbors
+After calculating the eight possible directions, we sum all the neighborhood matrices. Each cell in the neighbors matrix represent the sum of its eight neigbors.
+
+Finally, this version got a mean execution time of 0.044914627075195314 
 
 ## I made use of/learn
 - Random
